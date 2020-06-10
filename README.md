@@ -1,11 +1,18 @@
 # spring-boot-liquibase
+## Getting Start
 
-## Deploy postgres database and create database
+### Deploy postgres database and create database
 ```shell script
 docker exec -it postgresql_docker psql -U user -c "create database test_db"
 ```
-
-## Liquibase with Spring Boot Actuator
+### Liquibase dependency
+```maven
+<dependency>
+    <groupId>org.liquibase</groupId>
+    <artifactId>liquibase-core</artifactId>
+</dependency>
+```
+### Liquibase with Spring Boot Actuator
 
 * Adding the dependency
 ```maven
@@ -22,7 +29,7 @@ management:
       exposure:
         include: '*'
 ```
-
+## Testing Application
 * Running Application class
 * Navigate to /actuator/liquibase and see liquibase changelogs
 ```json
