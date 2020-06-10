@@ -33,3 +33,42 @@ databaseChangeLog:
                   type: numeric(5,3)
                   constraints:
                     nullable: false
+  - changeSet:
+      id:  20200607-book-insert
+      author:  phea_soy
+      changes:
+        - insert:
+            columns:
+              - column:
+                  name:  id
+                  value:  2
+              - column:
+                  name: title
+                  value: Enterprise Kubernetes
+              - column:
+                  name: snb
+                  value: whatever
+              - column:
+                  name: price
+                  value: 10.000
+            tableName:  book
+  - changeSet:
+      id:  20200607-book-insert-2
+      author:  phea_soy
+      context: prod
+      changes:
+        - insert:
+            columns:
+              - column:
+                  name:  id
+                  value:  10
+              - column:
+                  name: title
+                  value: Building Microservices
+              - column:
+                  name: snb
+                  value: whatever
+              - column:
+                  name: price
+                  value: 10.000
+            tableName:  book
