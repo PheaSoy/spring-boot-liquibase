@@ -22,8 +22,9 @@ management:
       exposure:
         include: '*'
 ```
+
 * Running Application class
-* Navigate to /actuator/actuator and see liquibase changelogs
+* Navigate to /actuator/liquibase and see liquibase changelogs
 ```json
 {
     "contexts": {
