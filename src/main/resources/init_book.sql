@@ -1,0 +1,1 @@
+create table book (id bigint ,title varchar(20),snb varchar(50), price numeric(10,3));

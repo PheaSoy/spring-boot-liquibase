@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: "20200607-book"
+      author: phea_soy
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: book
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_book
+                  name: id
+                  type: BIGSERIAL
+              - column:
+                  name: title
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: snb
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: numeric(5,3)
+                  constraints:
+                    nullable: false

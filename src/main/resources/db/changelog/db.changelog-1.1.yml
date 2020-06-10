@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: "20200607-book_category"
+      author: phea_soy
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: book_category
+      changes:
+        - createTable:
+            tableName: book_category
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_book_category
+                  name: id
+                  type: BIGSERIAL
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
