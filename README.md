@@ -2,6 +2,11 @@
 ## Getting Start
 
 ### Deploy postgres database and create database
+* Start the postgres database by using docker-compose
+```shell script
+docker-compose up 
+```
+* Create database
 ```shell script
 docker exec -it postgresql_docker psql -U user -c "create database test_db"
 ```
