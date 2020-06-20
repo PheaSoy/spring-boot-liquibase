@@ -8,14 +8,31 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.Optional;
 @Profile("integration-test")
-public class BookRepositoryIntegrationTest extends AbstractIntegrationTest{
+@SpringBootTest
 
+public class BookRepositoryIntegrationTest{
+
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>()
+            .withUsername("user")
+            .withPassword("password")
+            .withDatabaseName("test_db");
+
+    @DynamicPropertySource
+    static void postgresqlProperties(DynamicPropertyRegistry registry) {
+        postgres.start();
+        registry.add("spring.datasource.url", postgres::getJdbcUrl);
+        registry.add("spring.datasource.username", postgres::getUsername);
+        registry.add("spring.datasource.password", postgres::getPassword);
+        registry.add("spring.liquibase.contexts", () -> "!prod");
+    }
 
     @Autowired
     private BookRepository bookRepository;
@@ -39,7 +56,7 @@ public class BookRepositoryIntegrationTest extends AbstractIntegrationTest{
 
 
     @Test
-    @DisplayName("Test liquibase changeSet not prod")
+    @DisplayName("Test liquibase context prod should not execute ")
     public void find_book_by_id_context_prod(){
         Optional<Book> bookOptional = bookRepository.findById(10);
         Assertions.assertThat(bookOptional.isPresent()).isEqualTo(false);
